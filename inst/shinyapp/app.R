@@ -311,6 +311,9 @@ ui <- navbarPage(
   ),
   footer = tagList(
     tags$style(HTML("
+    body {
+        padding-bottom: 70px;
+      }
       .custom-footer {position: fixed; left: 0; right: 0; bottom: 0;
         height: 32px; background: #f8f9fa; border-top: 1px solid #e5e7eb;
         display: flex; align-items: center; justify-content: flex-end;
@@ -515,7 +518,7 @@ server <- function(input, output, session) {
       tags$h4(T_("PkgMeta", "Paket Künyesi")),
       tags$ul(
         tags$li(HTML(glue::glue('{T_("Version","Versiyon")}: {pkg_ver}'))),
-        tags$li(HTML(glue::glue('{T_("Github","GitHub")}: <a href="{repo_url}" target="_blank">{repo_url}</a>'))),
+        tags$li(HTML(glue::glue('{T_("Github","GitHub")}: <a href="https://github.com/ahmetcaliskan1987/SMART" target="_blank">https://github.com/ahmetcaliskan1987/SMART</a>'))),
         tags$li(HTML(glue::glue('{T_("Contact","İletişim")}: <a href="mailto:ahmetcaliskan1987@gmail.com">ahmetcaliskan1987@gmail.com</a>')))
       ),
 
