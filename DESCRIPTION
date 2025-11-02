@@ -1,0 +1,36 @@
+Package: SMART
+Title: SMART: Statistical Metrics and Reporting Tool
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Ahmet", family = "Çalışkan", 
+             email = "ahmetcaliskan1987@gmail.com", role = c("aut","cre")),
+      person(given = "Abdullah Faruk", family = "Kılıç",
+             email = "afarukkilic@trakya.edu.tr", role = "aut"))
+Description: A Shiny-based toolkit for item/test analysis. It is designed for multiple-choice, true-false, and open-ended questions. The toolkit is usable with datasets in 1-0 or other formats. Key analyses include difficulty, discrimination, distractor analysis, student reports, and DOCX exports.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: 
+    R (>= 4.1)
+Imports:
+    shiny,
+    dplyr,
+    tidyr,
+    purrr,
+    stringr,
+    readr,
+    readxl,
+    officer,
+    flextable,
+    glue,
+    magrittr,
+    jsonlite
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+URL: https://github.com/USER/SMART
+BugReports: https://github.com/USER/SMART/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3

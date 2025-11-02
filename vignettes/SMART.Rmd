@@ -1,0 +1,16 @@
+---
+title: "SMART: Statistical Metrics and Reporting Tool"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SMART: Statistical Metrics and Reporting Tool}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette demonstrates how to install and run the SMART Shiny app.
+
+To launch the application, first install the package, then run the `run_app()` function in your R console:
+
+```{r, eval=FALSE}
+# Launch the app
+SMART::run_app()
