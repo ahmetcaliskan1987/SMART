@@ -30,7 +30,7 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-URL: https://github.com/USER/SMART
-BugReports: https://github.com/USER/SMART/issues
+URL: https://github.com/ahmetcaliskan1987/SMART
+BugReports: https://github.com/ahmetcaliskan1987/SMART/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
