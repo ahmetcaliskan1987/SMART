@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_app.R
 \name{run_app}
 \alias{run_app}
-\title{Launch SMART Shiny application}
+\title{Launch examly Shiny application}
 \usage{
 run_app()
 }
@@ -14,10 +14,10 @@ Launches the packaged Shiny app located in \code{inst/shinyapp}.
 If the app files are not found, a minimal placeholder app is launched instead.
 }
 \details{
-This function is exported so users can run \code{SMART::run_app()}.
+This function is exported so users can run \code{examly::run_app()}.
 }
 \examples{
 \dontrun{
-SMART::run_app()
+examly::run_app()
 }
 }

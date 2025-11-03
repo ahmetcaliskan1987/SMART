@@ -19,7 +19,7 @@ i18n_load <- function(lang = "tr") {
   }
   fn <- paste0(lang, ".json")
   # installed package path
-  path <- system.file("shinyapp", "i18n", fn, package = "SMART")
+  path <- system.file("shinyapp", "i18n", fn, package = "examly")
   # dev fallback
   if (!nzchar(path)) path <- file.path("inst", "shinyapp", "i18n", fn)
   if (!file.exists(path)) {

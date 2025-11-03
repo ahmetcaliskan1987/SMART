@@ -1,4 +1,4 @@
-# SMART - Statistical Metrics and Reporting Tool
+# examly - Statistical Metrics and Reporting Tool
 library(shiny)
 library(dplyr); library(tidyr); library(purrr); library(stringr)
 library(readr); library(readxl)
@@ -116,7 +116,7 @@ title_default <- "Sınav Başlığı"
 
 ui <- navbarPage(
   title = uiOutput("app_brand"),
-  windowTitle = "SMART: Statistical Metrics and Reporting Tool",
+  windowTitle = "examly: Statistical Metrics and Reporting Tool",
   id = "mainnav",
   header = tagList(
     tags$script(HTML("
@@ -334,23 +334,23 @@ ui <- navbarPage(
 
 server <- function(input, output, session) {
 
-  dict <- reactiveVal(SMART::i18n_load("tr"))
-  T_   <- function(key, default = NULL) SMART::i18n_t(dict(), key, default)
+  dict <- reactiveVal(examly::i18n_load("tr"))
+  T_   <- function(key, default = NULL) examly::i18n_t(dict(), key, default)
 
   observeEvent(input$lang, {
-    dict(SMART::i18n_load(input$lang))
+    dict(examly::i18n_load(input$lang))
   }, ignoreInit = FALSE)
 
   output$app_brand <- renderUI({
     dict()
-    tags$span(T_("AppTitle", "SMART: Statistical Metrics and Reporting Tool"))
+    tags$span(T_("AppTitle", "examly: Statistical Metrics and Reporting Tool"))
   })
 
   observe({
     dict()
     session$sendCustomMessage(
       "set-title",
-      T_("AppTitle", "SMART: Statistical Metrics and Reporting Tool")
+      T_("AppTitle", "examly: Statistical Metrics and Reporting Tool")
     )
   })
 
@@ -493,15 +493,15 @@ server <- function(input, output, session) {
   observeEvent(input$about_footer, {
     dict()
 
-    pkg_name <- "SMART"
+    pkg_name <- "examly"
     pkg_ver  <- tryCatch(
       as.character(utils::packageDescription(pkg_name, fields = "Version")),
       error = function(e) "1.1.0"
     )
-    repo_url <- getOption("SMART.repo_url", "https://github.com/your-org/SMART")
+    repo_url <- getOption("examly.repo_url", "https://github.com/ahmetcaliskan1987/examly")
 
     showModal(modalDialog(
-      title     = T_("AppTitle", "SMART: Statistical Metrics and Reporting Tool"),
+      title     = T_("AppTitle", "examly: Statistical Metrics and Reporting Tool"),
       easyClose = TRUE,
       footer    = modalButton(T_("Close", "Kapat")),
 
@@ -518,7 +518,7 @@ server <- function(input, output, session) {
       tags$h4(T_("PkgMeta", "Paket Künyesi")),
       tags$ul(
         tags$li(HTML(glue::glue('{T_("Version","Versiyon")}: {pkg_ver}'))),
-        tags$li(HTML(glue::glue('{T_("Github","GitHub")}: <a href="https://github.com/ahmetcaliskan1987/SMART" target="_blank">https://github.com/ahmetcaliskan1987/SMART</a>'))),
+        tags$li(HTML(glue::glue('{T_("Github","GitHub")}: <a href="https://github.com/ahmetcaliskan1987/examly" target="_blank">https://github.com/ahmetcaliskan1987/examly</a>'))),
         tags$li(HTML(glue::glue('{T_("Contact","İletişim")}: <a href="mailto:ahmetcaliskan1987@gmail.com">ahmetcaliskan1987@gmail.com</a>')))
       ),
 

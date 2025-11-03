@@ -1,8 +1,8 @@
 ---
-title: "SMART: Statistical Metrics and Reporting Tool"
+title: "examly: Statistical Metrics and Reporting Tool"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{SMART: Statistical Metrics and Reporting Tool}
+  %\VignetteIndexEntry{examly: Statistical Metrics and Reporting Tool}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,4 +13,4 @@ To launch the application, first install the package, then run the `run_app()` f
 
 ```{r, eval=FALSE}
 # Launch the app
-SMART::run_app()
+examly::run_app()
