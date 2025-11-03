@@ -11,7 +11,7 @@ The goal of examly is to provide a Shiny-based toolkit for comprehensive
 item/test analysis. It is designed to handle multiple-choice,
 true-false, and open-ended questions from datasets in 1-0 or other
 formats, delivering key analyses such as difficulty, discrimination,
-distractor analysis, student reports, and DOCX exports.
+response-option analysis, student reports, and word (.docx) exports.
 
 ## Installation
 
