@@ -8,7 +8,8 @@
 #' @return Invisibly returns \code{NULL}. Called for its side effects.
 #' @export
 #' @examples
-#' \dontrun{
+#' system.file("shinyapp", package = "examly")
+#' if(interactive()){
 #' examly::run_app()
 #' }
 #' @importFrom shiny runApp fluidPage titlePanel p actionButton shinyApp

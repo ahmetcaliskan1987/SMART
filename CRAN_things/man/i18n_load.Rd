@@ -17,8 +17,13 @@ Finds \verb{<lang>.json} under the installed package's \verb{i18n/} folder and,
 if not found (during development), falls back to \verb{inst/i18n/<lang>.json}.
 }
 \examples{
-\dontrun{
-d <- i18n_load("tr")
-i18n_t(d, "ui.title", "Başlık")
+# Always-fast: locate the installed TR dictionary (empty string if not installed)
+system.file("shinyapp", "i18n", "tr.json", package = "examly")
+
+# Safe example that runs only if the file actually exists
+p <- system.file("shinyapp", "i18n", "tr.json", package = "examly")
+if (nzchar(p) && file.exists(p)) {
+  d <- i18n_load("tr")
+  i18n_t(d, "ui.title", "Baslik")
 }
 }

@@ -1,12 +1,12 @@
 Package: examly
 Title: Statistical Metrics and Reporting Tool
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(person(given = "Ahmet", family = "Çalışkan", 
              email = "ahmetcaliskan1987@gmail.com", role = c("aut","cre")),
       person(given = "Abdullah Faruk", family = "Kılıç",
              email = "afarukkilic@trakya.edu.tr", role = "aut"))
-Description: A Shiny-based toolkit for item/test analysis. It is designed for multiple-choice, true-false, and open-ended questions. The toolkit is usable with datasets in 1-0 or other formats. Key analyses include difficulty, discrimination, response-option analysis, reports.
+Description: A 'Shiny'-based toolkit for item/test analysis. It is designed for multiple-choice, true-false, and open-ended questions. The toolkit is usable with datasets in 1-0 or other formats. Key analyses include difficulty, discrimination, response-option analysis, reports. The classical test theory methods used are described in Ebel & Frisbie (1991, ISBN:978-0132892314).
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: 
@@ -23,12 +23,15 @@ Imports:
     flextable,
     glue,
     magrittr,
-    jsonlite
+    jsonlite,
+    tibble,
+    htmltools
 Suggests:
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
-    spelling
+    spelling,
+    psychometric
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://github.com/ahmetcaliskan1987/examly

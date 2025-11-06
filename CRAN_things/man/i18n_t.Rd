@@ -21,8 +21,10 @@ Returns the value for \code{key} from a dictionary produced by \code{\link[=i18n
 If the key is missing, returns \code{default} when provided, otherwise the key itself.
 }
 \examples{
-\dontrun{
-d <- i18n_load("en")
-i18n_t(d, "buttons.download", "Download")
+# A quick, fully automatic check:
+p <- system.file("shinyapp", "i18n", "en.json", package = "examly")
+if (nzchar(p) && file.exists(p)) {
+  d <- i18n_load("en")
+  i18n_t(d, "buttons.download", "Download")
 }
 }

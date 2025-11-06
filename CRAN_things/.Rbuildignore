@@ -1,6 +1,6 @@
-^examly\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
+^CRAN-SUBMISSION$
 ^LICENSE\.md$
 ^README\.Rmd$
 ^cran-comments\.md$
-^CRAN-SUBMISSION$

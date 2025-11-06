@@ -6,9 +6,14 @@
 #' @param lang Character scalar language code. Currently `"tr"` or `"en"`.
 #' @return A named list (key -> string) parsed from the JSON file.
 #' @examples
-#' \dontrun{
-#' d <- i18n_load("tr")
-#' i18n_t(d, "ui.title", "Başlık")
+#' # Always-fast: locate the installed TR dictionary (empty string if not installed)
+#' system.file("shinyapp", "i18n", "tr.json", package = "examly")
+#'
+#' # Safe example that runs only if the file actually exists
+#' p <- system.file("shinyapp", "i18n", "tr.json", package = "examly")
+#' if (nzchar(p) && file.exists(p)) {
+#'   d <- i18n_load("tr")
+#'   i18n_t(d, "ui.title", "Baslik")
 #' }
 #' @export
 #' @importFrom jsonlite fromJSON
@@ -38,9 +43,11 @@ i18n_load <- function(lang = "tr") {
 #' @param default Optional fallback value if the key is not present.
 #' @return Character scalar.
 #' @examples
-#' \dontrun{
-#' d <- i18n_load("en")
-#' i18n_t(d, "buttons.download", "Download")
+#' # A quick, fully automatic check:
+#' p <- system.file("shinyapp", "i18n", "en.json", package = "examly")
+#' if (nzchar(p) && file.exists(p)) {
+#'   d <- i18n_load("en")
+#'   i18n_t(d, "buttons.download", "Download")
 #' }
 #' @export
 i18n_t <- function(dict, key, default = NULL) {

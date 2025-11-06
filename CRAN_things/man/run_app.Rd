@@ -17,7 +17,8 @@ If the app files are not found, a minimal placeholder app is launched instead.
 This function is exported so users can run \code{examly::run_app()}.
 }
 \examples{
-\dontrun{
+system.file("shinyapp", package = "examly")
+if(interactive()){
 examly::run_app()
 }
 }
