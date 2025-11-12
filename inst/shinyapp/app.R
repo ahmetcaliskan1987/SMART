@@ -4,9 +4,7 @@ library(dplyr); library(tidyr); library(purrr); library(stringr)
 library(readr); library(readxl)
 library(officer); library(flextable); library(glue)
 library(magrittr)
-library(examly)
 library(ggplot2)
-library(ggpubr)
 
 title_default <- "Sınav Başlığı"
 
@@ -1541,13 +1539,13 @@ server <- function(input, output, session) {
   make_summary_docx <- function(file,title,s, mcN, tfN, binN, lcN, names_vec, test_tbl,item_tbl, dlist){
     doc<-read_docx(); body_add_par(doc,title,style="heading 1")
     doc<-body_add_flextable(doc,flextable(test_tbl) %>% autofit() %>% fit_to_width(6.5))
-    body_add_par(doc,"\\nMadde İstatistikleri",style="heading 2")
-    body_add_par(doc,"\\nÖğrenci Sonuçları",style="heading 2")
+    body_add_par(doc, T_("ReportHead.ItemStats", "Madde İstatistikleri"), style="heading 2")
+    body_add_par(doc, T_("ReportHead.StudentResults", "Öğrenci Sonuçları"), style="heading 2")
     ft_students <- flextable(make_student_df(s, mcN, tfN, binN, lcN, names_vec)) %>% add_multiheader_ft()
     doc <- body_add_flextable(doc, ft_students)
 
     if(length(dlist)>0){
-      body_add_par(doc, "\\nÇeldirici Analizi (Seçenek Dağılımları)", style = "heading 2")
+      body_add_par(doc, T_("ReportHead.Distractor", "Çeldirici Analizi"), style = "heading 2")
       for(nm in names(dlist)){
         body_add_par(doc, nm, style = "heading 3")
         doc <- body_add_flextable(doc, flextable(dlist[[nm]]) %>% autofit() %>% fit_to_width(6.5))
@@ -1563,12 +1561,12 @@ server <- function(input, output, session) {
       tryCatch({
         s <- test_summary()
         if (is.null(s)) {
-          stop(T_("ReportError", "Rapor oluşturulamadı. Hata Mesajı: "), "test_summary boş.")
+          stop(T_("ReportErrorNullSummary", "Rapor oluşturulamadı: Test özeti boş."))
         }
         mcN <- mc_items_use(); tfN <- tf_items_use(); binN <- bin_items_use(); lcN <- lc_items_use()
         names_vec <- student_names()
         if (is.null(names_vec) || length(names_vec) == 0) {
-          stop(T_("ReportError", "Rapor oluşturulamadı. Hata Mesajı: "), "Öğrenci isimleri boş.")
+          stop(T_("ReportErrorNullNames", "Rapor oluşturulamadı: Öğrenci isimleri boş."))
         }
 
         df_students <- tryCatch({

@@ -14,4 +14,6 @@
 #' @importFrom readxl read_excel
 #' @importFrom stringr str_detect
 #' @importFrom tidyr pivot_longer
+#' @importFrom ggplot2 ggplot aes geom_col theme_minimal labs scale_y_continuous
+
 NULL

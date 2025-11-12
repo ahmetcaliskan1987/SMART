@@ -1,6 +1,6 @@
 Package: examly
 Title: Statistical Metrics and Reporting Tool
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     c(person(given = "Ahmet", family = "Çalışkan", 
              email = "ahmetcaliskan1987@gmail.com", role = c("aut","cre")),
@@ -14,6 +14,7 @@ Depends:
 Imports:
     shiny,
     dplyr,
+    ggplot2,
     tidyr,
     purrr,
     stringr,
