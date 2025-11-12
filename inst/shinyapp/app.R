@@ -303,7 +303,7 @@ server <- function(input, output, session) {
       inputId = "lang",
       label   = T_("LanguageSelection", "Dil Seçimi"),
       choices = c("Türkçe" = "tr", "English" = "en"),
-      selected = input$lang %||% "tr",
+      selected <- examly::`%||%`(input$lang, "tr"),
       inline = TRUE
     )
   })
@@ -364,7 +364,7 @@ server <- function(input, output, session) {
         c(",", ";"),
         c(T_("Comma", "Virgül"), T_("Semicolon", "Noktalı Virgül"))
       ),
-      selected = input$sep %||% ","
+      selected <- examly::`%||%`(input$sep, ",")
     )
 
     updateSelectInput(
@@ -498,8 +498,8 @@ server <- function(input, output, session) {
   })
 
   data_items <- reactive({
-    df <- raw_data(); req(norm_cols(input$item_cols))
-    sel <- setdiff(norm_cols(input$item_cols), input$name_col)
+    df <- raw_data(); req(examly::norm_cols(input$item_cols))
+    sel <- setdiff(examly::norm_cols(input$item_cols), input$name_col)
     sel <- intersect(sel, names(df))
     if(length(sel) == 0) return(df[, 0, drop = FALSE])
     as.data.frame(df[, sel, drop=FALSE])
@@ -548,14 +548,17 @@ server <- function(input, output, session) {
   }, align = "c")
 
   mc_items_use <- reactive({
-    taken <- union(union(input$tf_items %||% character(0), input$lc_items %||% character(0)),
-                   input$bin_items %||% character(0))
-    base_cols <- norm_cols(input$item_cols) %||% character(0)
+    taken <- union(
+      union(examly::`%||%`(input$tf_items, character(0)),
+            examly::`%||%`(input$lc_items, character(0))),
+      examly::`%||%`(input$bin_items, character(0))
+    )
+    base_cols <- examly::`%||%`(examly::norm_cols(input$item_cols), character(0))
     if(!is.null(input$mc_items) && length(input$mc_items)>0) input$mc_items else setdiff(base_cols, taken)
   })
-  tf_items_use <- reactive({ input$tf_items %||% character(0) })
-  lc_items_use <- reactive({ input$lc_items %||% character(0) })
-  bin_items_use <- reactive({ input$bin_items %||% character(0) })
+  tf_items_use  <- reactive({ examly::`%||%`(input$tf_items,  character(0)) })
+  lc_items_use  <- reactive({ examly::`%||%`(input$lc_items,  character(0)) })
+  bin_items_use <- reactive({ examly::`%||%`(input$bin_items, character(0)) })
 
   output$mc_item_selector <- renderUI({
     req(input$item_cols)
@@ -643,8 +646,8 @@ server <- function(input, output, session) {
   })
 
   output$item_weight_table <- renderUI({
-    req(norm_cols(input$item_cols))
-    hdrs <- norm_cols(input$item_cols)
+    req(examly::norm_cols(input$item_cols))
+    hdrs <- examly::norm_cols(input$item_cols)
     inputs <- lapply(hdrs, function(nm){
       tagAppendAttributes(numericInput(paste0("w_", nm), NULL, value = 1, min = 0, step = 0.5, width=NULL),
                           class="grid-input-num")
@@ -656,40 +659,40 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$mc_items, {
-    mc <- input$mc_items %||% character(0)
-    tf <- input$tf_items %||% character(0)
-    lc <- input$lc_items %||% character(0)
-    bn <- input$bin_items %||% character(0)
+    mc <- examly::`%||%`(input$mc_items,  character(0))
+    tf <- examly::`%||%`(input$tf_items,  character(0))
+    lc <- examly::`%||%`(input$lc_items,  character(0))
+    bn <- examly::`%||%`(input$bin_items, character(0))
     new_tf <- setdiff(tf, mc); new_lc <- setdiff(lc, mc); new_bn <- setdiff(bn, mc)
     if(!identical(new_tf, tf)) updateCheckboxGroupInput(session, "tf_items", selected = new_tf)
     if(!identical(new_lc, lc)) updateCheckboxGroupInput(session, "lc_items", selected = new_lc)
     if(!identical(new_bn, bn)) updateCheckboxGroupInput(session, "bin_items", selected = new_bn)
   }, ignoreInit = TRUE)
   observeEvent(input$tf_items, {
-    mc <- input$mc_items %||% character(0)
-    tf <- input$tf_items %||% character(0)
-    lc <- input$lc_items %||% character(0)
-    bn <- input$bin_items %||% character(0)
+    mc <- examly::`%||%`(input$mc_items,  character(0))
+    tf <- examly::`%||%`(input$tf_items,  character(0))
+    lc <- examly::`%||%`(input$lc_items,  character(0))
+    bn <- examly::`%||%`(input$bin_items, character(0))
     new_mc <- setdiff(mc, tf); new_lc <- setdiff(lc, tf); new_bn <- setdiff(bn, tf)
     if(!identical(new_mc, mc)) updateCheckboxGroupInput(session, "mc_items", selected = new_mc)
     if(!identical(new_lc, lc)) updateCheckboxGroupInput(session, "lc_items", selected = new_lc)
     if(!identical(new_bn, bn)) updateCheckboxGroupInput(session, "bin_items", selected = new_bn)
   }, ignoreInit = TRUE)
   observeEvent(input$bin_items, {
-    mc <- input$mc_items %||% character(0)
-    tf <- input$tf_items %||% character(0)
-    lc <- input$lc_items %||% character(0)
-    bn <- input$bin_items %||% character(0)
+    mc <- examly::`%||%`(input$mc_items,  character(0))
+    tf <- examly::`%||%`(input$tf_items,  character(0))
+    lc <- examly::`%||%`(input$lc_items,  character(0))
+    bn <- examly::`%||%`(input$bin_items, character(0))
     new_mc <- setdiff(mc, bn); new_tf <- setdiff(tf, bn); new_lc <- setdiff(lc, bn)
     if(!identical(new_mc, mc)) updateCheckboxGroupInput(session, "mc_items", selected = new_mc)
     if(!identical(new_tf, tf)) updateCheckboxGroupInput(session, "tf_items", selected = new_tf)
     if(!identical(new_lc, lc)) updateCheckboxGroupInput(session, "lc_items", selected = new_lc)
   }, ignoreInit = TRUE)
   observeEvent(input$lc_items, {
-    mc <- input$mc_items %||% character(0)
-    tf <- input$tf_items %||% character(0)
-    lc <- input$lc_items %||% character(0)
-    bn <- input$bin_items %||% character(0)
+    mc <- examly::`%||%`(input$mc_items,  character(0))
+    tf <- examly::`%||%`(input$tf_items,  character(0))
+    lc <- examly::`%||%`(input$lc_items,  character(0))
+    bn <- examly::`%||%`(input$bin_items, character(0))
     new_mc <- setdiff(mc, lc); new_tf <- setdiff(tf, lc); new_bn <- setdiff(bn, lc)
     if(!identical(new_mc, mc)) updateCheckboxGroupInput(session, "mc_items", selected = new_mc)
     if(!identical(new_tf, tf)) updateCheckboxGroupInput(session, "tf_items", selected = new_tf)
@@ -761,7 +764,7 @@ server <- function(input, output, session) {
   })
 
   item_weights <- reactive({
-    cols <- norm_cols(input$item_cols) %||% character(0)
+    cols <- examly::`%||%`(examly::norm_cols(input$item_cols), character(0))
     w <- setNames(rep(1, length(cols)), cols)
     for(nm in cols){
       v <- suppressWarnings(as.numeric(input[[paste0("w_", nm)]]))
@@ -773,42 +776,42 @@ server <- function(input, output, session) {
 
   scored_items <- reactive({
     df <- data_items(); keys <- answer_keys()
-    if(is.null(df) || (length(norm_cols(input$item_cols) %||% character(0))==0)) return(NULL)
+    if (is.null(df) || (length(examly::`%||%`(examly::norm_cols(input$item_cols), character(0))) == 0)) return(NULL)
 
-    all_names <- norm_cols(input$item_cols)
+    all_names <- examly::norm_cols(input$item_cols)
     sc_bin <- matrix(NA_real_, nrow=nrow(df), ncol=length(all_names), dimnames=list(NULL, all_names)) %>% as.data.frame()
     lc_raw <- matrix(NA_real_, nrow=nrow(df), ncol=length(all_names), dimnames=list(NULL, all_names)) %>% as.data.frame()
 
     for(nm in lc_items_use()){
       if(nm %in% names(df)){
-        lc_raw[[nm]] <- parse_lc_raw(df[[nm]])
+        lc_raw[[nm]] <- examly::parse_lc_raw(df[[nm]])
         sc_bin[[nm]] <- NA_real_
       }
     }
 
     for(nm in bin_items_use()){
       if(nm %in% names(df)){
-        sc_bin[[nm]] <- parse_lc_bin(df[[nm]])
+        sc_bin[[nm]] <- examly::parse_lc_bin(df[[nm]])
       }
     }
 
     for(nm in setdiff(all_names, union(union(mc_items_use(), tf_items_use()),
                                        union(lc_items_use(), bin_items_use())))){
       col <- df[[nm]]
-      if(is_scored_01(col)){
-        sc_bin[[nm]] <- parse_lc_bin(col)
+      if(examly::is_scored_01(col)){
+        sc_bin[[nm]] <- examly::parse_lc_bin(col)
       }
     }
 
     for(nm in names(keys$mc)){
       if(isTruthy(keys$mc[[nm]]) && nm %in% names(df)){
-        sc_bin[[nm]] <- parse_mc_bin(df[[nm]], keys$mc[[nm]])
+        sc_bin[[nm]] <- examly::parse_mc_bin(df[[nm]], keys$mc[[nm]])
       }
     }
 
     for(nm in names(keys$tf)){
       if(isTruthy(keys$tf[[nm]]) && nm %in% names(df)){
-        sc_bin[[nm]] <- parse_tf_bin(df[[nm]], keys$tf[[nm]])
+        sc_bin[[nm]] <- examly::parse_tf_bin(df[[nm]], keys$tf[[nm]])
       }
     }
 
@@ -833,7 +836,7 @@ server <- function(input, output, session) {
     }
     NULL
   })
-  itemexam_quant_reactive <- reactive({ get_itemexam_quant() })
+  itemexam_quant_reactive <- reactive({ examly::get_itemexam_quant() })
 
   test_summary <- reactive({
     dict()
@@ -846,7 +849,7 @@ server <- function(input, output, session) {
 
     w <- item_weights()
     all_items <- colnames(sc_bin)
-    w_use <- w[all_items] %||% rep(1, length(all_items))
+    w_use <- examly::`%||%`(w[all_items], rep(1, length(all_items)))
     names(w_use) <- all_items
 
     Y <- as.data.frame(matrix(NA_real_, nrow = n_stu, ncol = length(all_items), dimnames = list(NULL, all_items)))
@@ -884,7 +887,7 @@ server <- function(input, output, session) {
     rjx <- sapply(seq_len(ncol(Y)), function(j){
       yj <- Y[[j]]
       if(all(is.na(yj))) return(NA_real_)
-      pbiserial_rest(yj, weighted_total - ifelse(is.na(yj), 0, yj))
+      examly::pbiserial_rest(yj, weighted_total - ifelse(is.na(yj), 0, yj))
     })
     names(rjx) <- all_items
 
@@ -895,7 +898,7 @@ server <- function(input, output, session) {
     alpha <- if (k_eff > 1 && !is.na(var_total) && var_total > 0) (k_eff/(k_eff - 1)) * (1 - sum(col_vars, na.rm = TRUE)/var_total) else NA_real_
 
     only_dicho <- sc_bin[, intersect(colnames(sc_bin), union(mc_tf_bin_names, other_names)), drop = FALSE]
-    kr20_val <- if(length(lc_names)==0 && all(w_use[union(mc_tf_bin_names, other_names)]==1, na.rm=TRUE)) kr20(only_dicho) else NA_real_
+    kr20_val <- if(length(lc_names)==0 && all(w_use[union(mc_tf_bin_names, other_names)]==1, na.rm=TRUE)) examly::kr20(only_dicho) else NA_real_
 
     q <- itemexam_quant_reactive(); k <- max(1, floor(n_stu * q))
     ord <- order(weighted_total)
@@ -905,7 +908,7 @@ server <- function(input, output, session) {
     list(
       n_stu = n_stu,
       median = stats::median(weighted_total, na.rm=TRUE),
-      mode   = suppressWarnings(d_mode(weighted_total)),
+      mode   = suppressWarnings(examly::d_mode(weighted_total)),
       mean   = mean(weighted_total, na.rm=TRUE),
       sd     = stats::sd(weighted_total, na.rm=TRUE),
       avg_p  = mean(p_all[!is.na(p_all)], na.rm=TRUE),
@@ -1063,12 +1066,12 @@ server <- function(input, output, session) {
 
   output$avg_p_badge <- renderUI({
     s <- test_summary()
-    HTML(paste(T_("AvgP","Ortalama Güçlük:"), as.character(color_badge(s$avg_p, "p"))))
+    HTML(paste(T_("AvgP","Ortalama Güçlük:"), as.character(examly::color_badge(s$avg_p, "p"))))
   })
 
   output$avg_r_badge <- renderUI({
     s <- test_summary()
-    HTML(paste(T_("AvgR","Ortalama Ayırt Edicilik:"), as.character(color_badge(s$avg_r, "r"))))
+    HTML(paste(T_("AvgR","Ortalama Ayırt Edicilik:"), as.character(examly::color_badge(s$avg_r, "r"))))
   })
 
   output$weighted_mean_text <- renderText({
@@ -1106,8 +1109,8 @@ server <- function(input, output, session) {
                error = function(e) NA_real_)
     })
 
-    diff_keys <- vapply(p,     difficulty_label_key,      NA_character_)
-    disc_keys <- vapply(s$rjx, discrimination_decision_key, NA_character_)
+    diff_keys <- vapply(p,     examly::difficulty_label_key,      NA_character_)
+    disc_keys <- vapply(s$rjx, examly::discrimination_decision_key, NA_character_)
 
     diff_labels <- ifelse(is.na(diff_keys), "",
                           vapply(diff_keys, function(k) T_(k, ""), character(1)))
@@ -1155,7 +1158,7 @@ server <- function(input, output, session) {
   mc_raw_norm <- reactive({
     req(mc_items_use()); df <- data_items(); cols <- intersect(names(df), mc_items_use())
     if(length(cols)==0) return(NULL)
-    as.data.frame(lapply(cols, function(nm) norm_letter(df[[nm]])), stringsAsFactors=FALSE) %>% setNames(cols)
+    as.data.frame(lapply(cols, function(nm) examly::norm_letter(df[[nm]])), stringsAsFactors=FALSE) %>% setNames(cols)
   })
   compute_distractor <- function(item_name){
     s <- test_summary(); totals <- s$weighted_total
@@ -1310,9 +1313,9 @@ server <- function(input, output, session) {
     has_bn <- length(bnN) > 0
     has_lc <- length(lcN) > 0
 
-    cnt_mc <- if(has_mc) student_counts(sc_all[, intersect(colnames(sc_all), mcN), drop=FALSE]) else NULL
-    cnt_tf <- if(has_tf) student_counts(sc_all[, intersect(colnames(sc_all), tfN), drop=FALSE]) else NULL
-    cnt_bn <- if(has_bn) student_counts(sc_all[, intersect(colnames(sc_all), bnN), drop=FALSE]) else NULL
+    cnt_mc <- if(has_mc) examly::student_counts(sc_all[, intersect(colnames(sc_all), mcN), drop=FALSE]) else NULL
+    cnt_tf <- if(has_tf) examly::student_counts(sc_all[, intersect(colnames(sc_all), tfN), drop=FALSE]) else NULL
+    cnt_bn <- if(has_bn) examly::student_counts(sc_all[, intersect(colnames(sc_all), bnN), drop=FALSE]) else NULL
     lc_sum <- if(has_lc) rowSums(lc_all[, intersect(colnames(lc_all), lcN), drop=FALSE], na.rm=TRUE) else rep(0, nrow(sc_all))
 
     yorumlar <- purrr::map_chr(seq_len(nrow(s$sc_bin)), function(i){
@@ -1453,19 +1456,19 @@ server <- function(input, output, session) {
     result_list[[col_student]] <- unname(names_vec)
 
     if (has_mc) {
-      cnt_mc <- student_counts(sc_all[, intersect(colnames(sc_all), mcN), drop=FALSE])
+      cnt_mc <- examly::student_counts(sc_all[, intersect(colnames(sc_all), mcN), drop=FALSE])
       result_list[[paste(short_mc, lbl_correct)]] <- unname(cnt_mc$Dogru)
       result_list[[paste(short_mc, lbl_wrong)  ]] <- unname(cnt_mc$Yanlis)
       result_list[[paste(short_mc, lbl_blank)  ]] <- unname(cnt_mc$Bos)
     }
     if (has_tf) {
-      cnt_tf <- student_counts(sc_all[, intersect(colnames(sc_all), tfN), drop=FALSE])
+      cnt_tf <- examly::student_counts(sc_all[, intersect(colnames(sc_all), tfN), drop=FALSE])
       result_list[[paste(short_tf, lbl_correct)]] <- unname(cnt_tf$Dogru)
       result_list[[paste(short_tf, lbl_wrong)  ]] <- unname(cnt_tf$Yanlis)
       result_list[[paste(short_tf, lbl_blank)  ]] <- unname(cnt_tf$Bos)
     }
     if (has_bn) {
-      cnt_bn <- student_counts(sc_all[, intersect(colnames(sc_all), binN), drop=FALSE])
+      cnt_bn <- examly::student_counts(sc_all[, intersect(colnames(sc_all), binN), drop=FALSE])
       result_list[[paste(short_bin, lbl_correct)]] <- unname(cnt_bn$Dogru)
       result_list[[paste(short_bin, lbl_wrong)  ]] <- unname(cnt_bn$Yanlis)
       result_list[[paste(short_bin, lbl_blank)  ]] <- unname(cnt_bn$Bos)
@@ -1671,8 +1674,8 @@ server <- function(input, output, session) {
                  error = function(e) NA_real_)
       })
 
-      diff_keys <- vapply(p,     difficulty_label_key,        NA_character_)
-      disc_keys <- vapply(s$rjx, discrimination_decision_key, NA_character_)
+      diff_keys <- vapply(p,     examly::difficulty_label_key,        NA_character_)
+      disc_keys <- vapply(s$rjx, examly::discrimination_decision_key, NA_character_)
 
       diff_labels <- ifelse(is.na(diff_keys), "",
                             vapply(diff_keys, function(k) T_(k, ""), character(1)))
