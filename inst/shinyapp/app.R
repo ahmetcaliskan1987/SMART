@@ -4,7 +4,7 @@ library(dplyr); library(tidyr); library(purrr); library(stringr)
 library(readr); library(readxl)
 library(officer); library(flextable); library(glue)
 library(magrittr)
-
+library(examly)
 
 title_default <- "Sınav Başlığı"
 
