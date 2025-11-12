@@ -39,6 +39,7 @@ parse_lc_raw <- function(x){
   v
 }
 
+#' @export
 norm_cols <- function(x){
   if (is.null(x)) return(character(0))
 

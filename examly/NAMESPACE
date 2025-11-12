@@ -3,6 +3,7 @@
 export("%>%")
 export(i18n_load)
 export(i18n_t)
+export(norm_cols)
 export(run_app)
 importFrom(dplyr,filter)
 importFrom(flextable,flextable)
