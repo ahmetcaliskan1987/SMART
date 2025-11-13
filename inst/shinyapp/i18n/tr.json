@@ -64,9 +64,9 @@
   "Difficult": "Zor",
   "Medium": "Orta",
   "Easy": "Kolay",
-  "Drop": "Testten Çıkarılmalı",
-  "ConsiderDrop": "Atılması Düşünülebilir",
-  "Keep": "Kalmalı",
+  "Drop": "Gözden geçirilmesi önerilir.",
+  "ConsiderDrop": "Geliştirilebilir",
+  "Keep": "Etkili madde",
 
   "DistractorPickItem": "Madde seçin",
   "DistractorCommentHeader": "Yorum",

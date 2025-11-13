@@ -18,6 +18,14 @@ run_app <- function() {
   app_file <- file.path(app_dir, "app.R")
 
   if (nzchar(app_dir) && file.exists(app_file)) {
+    # YENİ EKLENEN KOD:
+    # R oturumunun kendisini UTF-8 kullanmaya zorlar.
+    # Bu, 'parse' hatasını (unable to translate) önler.
+    old_opts <- options(encoding = "UTF-8")
+    on.exit(options(old_opts), add = TRUE) # Fonksiyon bitince eski ayara döner
+
+    # DÜZELTME: 'encoding' parametresi, eski shiny versiyonuyla
+    # uyumluluk için buradan kaldırıldı.
     shiny::runApp(appDir = app_dir, display.mode = "normal")
     return(invisible(NULL))
   }

@@ -64,9 +64,9 @@
   "Difficult": "Difficult",
   "Medium": "Medium",
   "Easy": "Easy",
-  "Drop": "Drop",
-  "ConsiderDrop": "Consider Revising/Removing",
-  "Keep": "Keep",
+  "Drop": "Revision Recommended",
+  "ConsiderDrop": "Can be Improved",
+  "Keep": "Effective Item",
 
   "DistractorPickItem": "Select an item",
   "DistractorCommentHeader": "Comment",
